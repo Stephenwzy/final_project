@@ -4,10 +4,67 @@
         <meta charset="utf-8">
         <title>Find a Coffee Shop</title>
         <meta name="viewport" content="width-device-width, initial-scale=1">
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet">
 
+        <!--Geocoder-->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+
+        <!--CSS style-->
+        <style>
+
+        </style>
 
     </head>
 
+    <body>
+        <div class="sidebar">
+            <div class="heading">
+                <h1>Starbucks Map in Seattle</h1>
+            </div>
+            <div class="list" id="list"></div>
+        </div>
+        <div class="map" id="map"></div>
+
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
+
+            const map = new mapboxgl.Map ({
+                container: 'map',
+                style:'mapbox://styles/mapbox/light-v10',
+                center:[-122.32559, 47.641025],
+                zoom: 5,
+                scrollZoom: false
+            });
+
+
+            async function geojsonFetch() {
+                let response, starbucks;
+                response = await fetch('assets/starbucks_sea.geojson');
+                starbucks = await response.json();
+
+                map.on('load', () => {
+
+                    starbucks.features.forEach((site, i) => {
+                        site.properties.id = i;
+                    });
+
+                    map.addSource('starbucks', {
+                        type:'geojson',
+                        data:starbucks
+                    });
+
+
+
+                })
+
+            }
+
+        </script>
+
+    </body>
 
 
 </html>
