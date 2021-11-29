@@ -13,6 +13,38 @@
 
         <!--CSS style-->
         <style>
+            body {
+                color: #404040;
+                font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+                margin: 0;
+                padding: 0;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1 {
+                font-size: 20px;
+                margin: 0;
+                font-weight: 2000;
+                line-height: 20px;
+                padding: 20px 2px;
+            }
+
+            .sidebar {
+                position: absolute;
+                width: 33.3333%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+                border-right: 1px solid rgba(0,0,0,0.25);
+            }
+
+            .map {
+                position: absolute;
+                left: 33.3333%;
+                width: 66.6666%;
+                top: 0;
+                bottom: 0;
+            }
 
         </style>
 
@@ -35,7 +67,7 @@
                 container: 'map',
                 style:'mapbox://styles/mapbox/light-v10',
                 center:[-122.32559, 47.641025],
-                zoom: 5,
+                zoom: 10,
                 scrollZoom: false
             });
 
@@ -56,11 +88,18 @@
                         data:starbucks
                     });
 
-
-
+                /* Place to call 'marker' function and 'location list' function*/
                 })
 
+
+                function buildLocationList(starbucks) {
+                    for (const starbuck of starbucks.features) {
+                        const listings = document.getElementById('listings');
+                    }
+                }
+
             }
+            getjsonFetch();
 
         </script>
 
