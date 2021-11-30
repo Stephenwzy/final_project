@@ -133,7 +133,7 @@
             }
 
             .mapboxgl-popup {
-            padding-bottom: 50px;
+                padding-bottom: 50px;
             }
 
             .mapboxgl-popup-close-button {
@@ -298,7 +298,7 @@
 
                 function createPopUp(currentFeature) {
                     const popUps = document.getElementsByClassName('mapboxgl-popup');
-                    if (popUp[0]) popUp[0].remove();
+                    if (popUps[0]) popUps[0].remove();
                     const popup = new mapboxgl.Popup({
                         closeOnClick: false
                     })
@@ -308,6 +308,13 @@
                     )
                     .addTo(map);
                 }
+
+                map.addControl(
+                    new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl
+                    })
+                ); 
             }
             geojsonFetch();
 
