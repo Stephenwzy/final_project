@@ -28,6 +28,14 @@
                 padding: 20px 2px;
             }
 
+            .heading{
+                background: #fff;
+                border-bottom: 1px solid #eee;
+                height: 60px;
+                line-height: 60px;
+                padding: 0 10px;
+            }
+
             .sidebar {
                 position: absolute;
                 width: 33.3333%;
@@ -45,6 +53,60 @@
                 top: 0;
                 bottom: 0;
             }
+
+            .listings {
+                height: 100%;
+                overflow: auto;
+                padding-bottom: 60px;
+            }
+
+            .listings .item {
+                display: block;
+                border-bottom: 1px solid #eee;
+                padding: 10px;
+                text-decoration: none;
+            }
+
+            .listings .item:last-child {
+                border-bottom: none;
+            }
+
+            .listings .item .title {
+                display: block;
+                color: #00853e;
+                font-weight: 700;
+            }
+
+            .listings .item .title small {
+                font-weight: 400;
+            }
+
+            .listings .item.active .title,
+            .listings .item .title:hover {
+                color: #8cc63f;
+            }
+
+            .listings .item.active {
+                background-color: #f8f8f8;
+            }
+
+            ::-webkit-scrollbar {
+                width: 3px;
+                height: 3px;
+                border-left: 0;
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            ::-webkit-scrollbar-track {
+                background: none;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #00853e;
+                border-radius: 0;
+            }
+
+
 
         </style>
 
@@ -89,15 +151,97 @@
                     });
 
                 /* Place to call 'marker' function and 'location list' function*/
+                buildLocationList(starbucks);
+                addMakers();
                 })
 
 
+              /*function addMakers() {
+                    for (const marker of starbucks.features) {
+                        const el = document.createElement('div');
+                        el.id = `marker-${marker.properties.id}`;
+                        el.className = 'marker';
+
+                        new mapboxgl.Marker(el, {
+                            offset: [0, -23]
+                        })
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+
+                        el.addEventListener('click', (e) => {
+                            flyToStore(marker);
+                            createPopUp(marker);
+                            const activeItem = document.getElementsByClassName('active');
+                            e.stopPropagation();
+                            if (activeItem[0]) {
+                                activeItem[0].classList.remove('active');
+                            }
+                            const listing = document.getElementById(
+                                `listing-${marker.properties.id}`
+                            );
+                            listing.classList.add('active');
+                        });
+                    }
+                }*/
+
                 function buildLocationList(starbucks) {
-                    for (const starbuck of starbucks.features) {
+                    for (const site of starbucks.features) {
                         const listings = document.getElementById('listings');
+                        const listing = listings.appendChild(document.createElement('div'));
+                        listing.id = `listing-${site.properties.id}`;
+                        listing.className = 'item';
+
+                        const link = listing.appendChild(document.createElement('a'));
+                        link.href = '#';
+                        link.className = 'title';
+                        link.id = `link-${site.properties.id}`;
+                        link.innerHTML = `${site.properties.street_address}`;
+
+                        const details = listing.appendChild(document.createElement('div'));
+                        details.innerHTML = `${site.properties.city}`;
+                        if(site.properties.phone_number) {
+                            details.innerHTML += ` &middot; ${site.properties.phone_number}`;
+                        }
+
+                        link.addEventListener('click', function () {
+                            for (const feature of starbucks.features) {
+                                if (this.id === `link-${feature.properties.id}`) {
+                                    flyToStore(feature);
+                                    createPopUp(feature);
+                                }
+                            }
+                            const activeItem = document.getElementsByClassName('active');
+                            if (activeItem[0]) {
+                                activeItem[0].classList.remove('active');
+                            }
+                            this.parentNode.classList.add('active');
+
+                        });
                     }
                 }
 
+
+
+                function flyToStore(currentFeature) {
+                    map.flyTo({
+                        center:currentFeature.geometry.coordinates,
+                        zoom:15
+                    });
+                }
+
+
+                function createPopUp(currentFeature) {
+                    const popUps = document.getElementsByClassName('mapboxgl-popup');
+                    if (popUp[0]) popUp[0].remove();
+                    const popup = new mapboxgl.Popup({
+                        closeOnClick: false
+                    })
+                    .satLngLat(currentFeature.geometry.coordinates)
+                    .setHTML(
+                        `<h3>Starbucks</h3><h4>${currentFeature.properties.street_address}</h4>`
+                    )
+                    .addTo(map);
+                }
             }
             getjsonFetch();
 
