@@ -1,160 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Find a Coffee Shop</title>
-        <meta name="viewport" content="width-device-width, initial-scale=1">
-        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
-        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet">
-
-        <!--Geocoder-->
-        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
-
-        <!--CSS style-->
-        <style>
-            body {
-                color: #404040;
-                font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
-                margin: 0;
-                padding: 0;
-                -webkit-font-smoothing: antialiased;
-            }
-
-            * {
-                box-sizing: border-box;
-            }
-            
-            h1 {
-                font-size: 20px;
-                margin: 0;
-                font-weight: 2000;
-                line-height: 20px;
-                padding: 20px 2px;
-            }
-
-            a {
-                color: #404040;
-                text-decoration: none;
-            }
-
-            a:hover {
-                color: #101010;
-            }
-
-            .heading {
-                background: #fff;
-                border-bottom: 1px solid #eee;
-                min-height: 60px;
-                line-height: 60px;
-                padding: 0 10px;
-                background-color: #00853e;
-                color: #fff;
-            }
-
-            .sidebar {
-                position: absolute;
-                width: 33.3333%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                overflow: hidden;
-                border-right: 1px solid rgba(0,0,0,0.25);
-            }
-
-            .map {
-                position: absolute;
-                left: 33.3333%;
-                width: 66.6666%;
-                top: 0;
-                bottom: 0;
-            }
-
-            .listings {
-                height: 100%;
-                overflow: auto;
-                padding-bottom: 60px;
-            }
-
-            .listings .item {
-                display: block;
-                border-bottom: 1px solid #eee;
-                padding: 10px;
-                text-decoration: none;
-            }
-
-            .listings .item:last-child {
-                border-bottom: none;
-            }
-
-            .listings .item .title {
-                display: block;
-                color: #00853e;
-                font-weight: 700;
-            }
-
-            .listings .item .title small {
-                font-weight: 400;
-            }
-
-            .listings .item.active .title,
-            .listings .item .title:hover {
-                color: #8cc63f;
-            }
-
-            .listings .item.active {
-                background-color: #f8f8f8;
-            }
-
-            ::-webkit-scrollbar {
-                width: 3px;
-                height: 3px;
-                border-left: 0;
-                background: rgba(0, 0, 0, 0.1);
-            }
-
-            ::-webkit-scrollbar-track {
-                background: none;
-            }
-
-            ::-webkit-scrollbar-thumb {
-                background: #00853e;
-                border-radius: 0;
-            }
-
-            .marker {
-                border: none;
-                cursor: pointer;
-                height: 56px;
-                width: 56px;
-                background-image: url(assets/starbucks_logo.png);
-            }
-
-
-
-        </style>
-
-    </head>
-
-    <body>
-        <div class="sidebar">
-            <div class="heading">
-                <h1>Starbucks Map in Seattle</h1>
-            </div>
-            <div class="list" id="list"></div>
-        </div>
-        <div class="map" id="map"></div>
-
-
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
+mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
 
             const map = new mapboxgl.Map ({
                 container: 'map',
                 style:'mapbox://styles/mapbox/light-v10',
                 center:[-122.32559, 47.641025],
-                zoom: 10,
-                scrollZoom: false
+                zoom: 12,
+                scrollZoom: true
             });
 
 
@@ -174,13 +25,65 @@
                         data:starbucks
                     });
 
+
+                    const geocoder = new MapboxGeocoder({
+                        accessToken: mapboxgl.accessToken,
+                        mapboxgl: mapboxgl,
+                        marker: true,
+                        bbox: [-122.43560, 47.50642, -122.24572, 47.76884]
+                    });
+
                     /* Place to call 'marker' function and 'location list' function*/
                     buildLocationList(starbucks);
-                    addMakers();
-                })
+                    map.addControl(geocoder, 'top-right');
+                    addMarkers();
 
 
-                function addMakers() {
+                    geocoder.on ('result', (e) => {
+                        const searchResult = event.result.geometry;
+
+                        const options = {units:'miles'};
+                        for (const site of starbucks.features) {
+                            site.properties.distance = turf.distance(
+                                searchResult,
+                                site.geometry,
+                                options
+                            );
+                        }
+
+                        starbucks.features.sort((a,b) => {
+                            if (a.properties.distance > b.properties.distance) {
+                                return 1;
+                            }
+                            if (a.properties.distance < b.properties.distance) {
+                                return -1;
+                            }
+                            return 0;
+                        });
+
+
+                        const listings = document.getElementById('listings');
+                        while (listings.firstChild){
+                            listings.removeChild(listing.firstChild);
+                        }
+                        buildLocationList(starbucks);
+                        createPopUp(starbucks.features[0]);
+
+                        const activeListing = document.getElementById(
+                            `listing-${starbucks.features[0].properties.id}`
+                        );
+                        activeListing.classList.add('active');
+
+
+                        const bbox = getBbox(starbucks, 0, searchResult);
+                        map.fitBounds(bbox, {
+                            padding: 100
+                        });
+                    });
+                });
+
+
+                function addMarkers() {
                     for (const marker of starbucks.features) {
                         const el = document.createElement('div');
                         el.id = `marker-${marker.properties.id}`;
@@ -226,6 +129,7 @@
                         if(site.properties.phone_number) {
                             details.innerHTML += ` &middot; ${site.properties.phone_number}`;
                         }
+                        details.innerHTML += ` &middot; ${site.properties.postal_code}`;
 
                         link.addEventListener('click', function () {
                             for (const feature of starbucks.features) {
@@ -256,7 +160,7 @@
 
                 function createPopUp(currentFeature) {
                     const popUps = document.getElementsByClassName('mapboxgl-popup');
-                    if (popUp[0]) popUp[0].remove();
+                    if (popUps[0]) popUps[0].remove();
                     const popup = new mapboxgl.Popup({
                         closeOnClick: false
                     })
@@ -267,11 +171,4 @@
                     .addTo(map);
                 }
             }
-            getjsonFetch();
-
-        </script>
-
-    </body>
-
-
-</html>
+            geojsonFetch();
