@@ -21,8 +21,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
                 map.on('load', () => {
 
                     map.addSource('starbucks', {
-                        type:'geojson',
-                        data:starbucks
+                        'type':'geojson',
+                        'data': starbucks
                     });
 
 
@@ -33,13 +33,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
                         bbox: [-122.43560, 47.50642, -122.24572, 47.76884]
                     });
 
-                    /* Place to call 'marker' function and 'location list' function*/
+                  
                     buildLocationList(starbucks);
                     map.addControl(geocoder, 'top-right');
                     addMarkers();
 
 
-                    geocoder.on ('result', (e) => {
+                    geocoder.on ('result', (event) => {
                         const searchResult = event.result.geometry;
 
                         const options = {units:'miles'};
@@ -164,7 +164,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
                     const popup = new mapboxgl.Popup({
                         closeOnClick: false
                     })
-                    .satLngLat(currentFeature.geometry.coordinates)
+                    .setLngLat(currentFeature.geometry.coordinates)
                     .setHTML(
                         `<h3>Starbucks</h3><h4>${currentFeature.properties.street_address}</h4>`
                     )
