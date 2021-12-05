@@ -64,7 +64,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
 
                         const listings = document.getElementById('listings');
                         while (listings.firstChild){
-                            listings.removeChild(listing.firstChild);
+                            listings.removeChild(listings.firstChild);
                         }
                         buildLocationList(starbucks);
                         createPopUp(starbucks.features[0]);
@@ -81,6 +81,47 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
                         });
                     });
                 });
+
+
+                function getBbox(sortedStarbucks, siteIdentifier, searchResult) {
+                    const lats = [
+                        sortedStarbucks.features[siteIdentifier].geometry.coordinates[1],
+                        searchResult.coordinates[1]
+                    ];
+
+                    const lons = [
+                        sortedStarbucks.features[siteIdentifier].geometry.coordinates[0],
+                        searchResult.coordinates[0]
+                    ];
+
+                    const sortedLons = lons.sort((a, b) => {
+                        if (a > b) {
+                            return 1;
+                        }
+                        if (a.distance < b.distance) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+
+                    const sortedLats = lats.sort((a, b) => {
+                        if (a > b) {
+                            return 1;
+                        }
+                        if (a.distance < b.distance) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                }
+
+
+
+
+
+
+
+
 
 
                 function addMarkers() {
@@ -126,10 +167,20 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
 
                         const details = listing.appendChild(document.createElement('div'));
                         details.innerHTML = `${site.properties.city}`;
-                        if(site.properties.phone_number) {
+                        if (site.properties.phone_number) {
                             details.innerHTML += ` &middot; ${site.properties.phone_number}`;
                         }
                         details.innerHTML += ` &middot; ${site.properties.postal_code}`;
+
+
+                        if (site.properties.distance) {
+                            const roundedDistance = 
+                                Math.round(site.properties.distance * 100)/100;
+                            details.innerHTML += `<div><strong>${roundedDistance} miles away</strong><div>`;
+                        }
+
+
+
 
                         link.addEventListener('click', function () {
                             for (const feature of starbucks.features) {
