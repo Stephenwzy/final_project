@@ -28,12 +28,12 @@ async function geojsonFetch() {
                     'interpolate',
                     ['linear'],
                     ['number', ['get', 'raw_visit_counts']],
-                    0, 4,
+                    0, 2,
                     50, 6,
-                    100, 8,
-                    500, 12,
-                    1000, 16,
-                    3000, 24
+                    100, 10,
+                    500, 16,
+                    1000, 22,
+                    3000, 28
                 ],
                 'circle-color': [
                     'interpolate',
