@@ -12,16 +12,21 @@ async function geojsonFetch() {
 
     let response, raw_visit;
     response = await fetch('assets/starbucks_sea.geojson');
-    raw_visit = await response.json()
+    starbucks = await response.json()
 
     map.on('load', () => {
 
+        let filterDay = ['!=', ['number', ['get', 'popularity_by_day']], 'placeholder'];
+        
+        starbucks.features.forEach((site, i) => {
+            site.properties.id = i;
+        });
         map.addLayer({
             id: 'raw_visit',
             type: 'circle',
             source: {
                 type: 'geojson',
-                data: raw_visit
+                data: starbucks
             },
             paint: {
                 'circle-radius': [
@@ -54,7 +59,26 @@ async function geojsonFetch() {
                 ],
                 'circle-opacity': 0.8
             },
+           
+            
         });
+
+        /*document
+        .getElementById('filters')
+        .addEventListener('change', (event) => {
+            const day = event.target.value;
+            for (const site of starbucks.features){
+                if (day == site.properties.popularity_by_day[0]) {
+                    filterDay = ['!=', ['string', ['get', 'popularity_by_day']], 'placeholder'];
+                } else{
+                    console.error('error');
+                }
+            }
+            
+            
+            map.setFilter('raw_visit', ['all', filterDay]);
+
+        });*/
 
 
     });
