@@ -18,9 +18,6 @@ async function geojsonFetch() {
 
         
         
-        starbucks.features.forEach((site, i) => {
-            site.properties.id = i;
-        });
         map.addLayer({
             id: 'raw_visit',
             type: 'circle',
