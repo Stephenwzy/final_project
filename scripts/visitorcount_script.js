@@ -16,7 +16,7 @@ async function geojsonFetch() {
 
     map.on('load', () => {
 
-        let filterDay = ['!=', ['number', ['get', 'popularity_by_day']], 'placeholder'];
+        
         
         starbucks.features.forEach((site, i) => {
             site.properties.id = i;
@@ -32,7 +32,7 @@ async function geojsonFetch() {
                 'circle-radius': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get', 'raw_visit_counts']],
+                    ['number', ['get','popularity_by_day']],
                     0, 2,
                     50, 6,
                     100, 10,
@@ -43,7 +43,7 @@ async function geojsonFetch() {
                 'circle-color': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get', 'raw_visit_counts']],
+                    ['number', ['get', 'popularity_by_day']],
                     0,
                     '#2DC4B2',
                     50,
