@@ -32,7 +32,7 @@ async function geojsonFetch() {
                 'circle-radius': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get','popularity_by_day']],
+                    ['number', ['get','raw_visit_counts']],
                     0, 2,
                     50, 6,
                     100, 10,
@@ -43,7 +43,7 @@ async function geojsonFetch() {
                 'circle-color': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get', 'popularity_by_day']],
+                    ['number', ['get', 'raw_visit_counts']],
                     0,
                     '#2DC4B2',
                     50,
