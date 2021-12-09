@@ -113,7 +113,7 @@ a:hover {
     cursor: pointer;
     height: 30px;
     width: 30px;
-    background-image: url(/assets/starbucks_logo.png);
+    background-image: url(/starbucks_logo.png);
     background-size: cover;
 }
 
