@@ -215,3 +215,7 @@ async function geojsonFetch() {
     }
 }
 geojsonFetch();
+
+function rd() {
+    window.location.href = 'visitorcount.html';
+}

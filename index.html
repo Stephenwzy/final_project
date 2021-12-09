@@ -7,6 +7,10 @@
     <meta name="viewport" content="width-device-width, initial-scale=1">
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Kanit:wght@700&display=swap"
+        rel="stylesheet">
 
     <!--Geocoder-->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js">
@@ -51,7 +55,8 @@
         }
 
         h1 {
-            font-size: 20px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 23px;
             margin: 0;
             font-weight: 400;
             line-height: 20px;
@@ -73,8 +78,44 @@
             min-height: 60px;
             line-height: 60px;
             padding: 0 10px;
-            background-color: #00853e;
+            background-color: #006241;
             color: #fff;
+        }
+
+        .button1 {
+            display: inline-block;
+            background-color: #006241;
+            border-radius: 10px;
+            border: 4px double #cccccc;
+            color: #eeeeee;
+            text-align: center;
+            font-size: 15px;
+            width: 100px;
+            height: 50px;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            -o-transition: all 0.2s;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .button2 {
+            display: inline-block;
+            background-color: #006241;
+            border-radius: 10px;
+            border: 4px double #cccccc;
+            color: #eeeeee;
+            text-align: center;
+            font-size: 15px;
+            width: 100px;
+            height: 50px;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            -o-transition: all 0.2s;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin: 3px;
         }
 
         .listings {
@@ -187,8 +228,9 @@
 <body>
     <div class="sidebar">
         <div class="heading">
-            <h1>Starbucks Map in Seattle</h1>
-            <form><button type="submit" formaction="visitorcount.html">click me</button></form>
+            <h1>STARBUCKS  in  Seattle</h1>
+            <button class="button1" onclick="rd()">Raw Visits</button>
+            <button class="button2" onclick="rd()">Directions</button>
         </div>
         <div class="listings" id="listings"></div>
     </div>
