@@ -25,7 +25,15 @@ async function geojsonFetch() {
             'data': starbucks
         });
 
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl:mapboxgl,
+            marker:true,
+            bbox: [-122.437866,47.513784,-122.239633,47.774180]
+        });
+
         buildLocationList(starbucks);
+        map.addControl(geocoder, 'top-right');
         addMarkers();
 
         geocoder.on('result', (event) => {
@@ -198,7 +206,7 @@ async function geojsonFetch() {
             })
             .setLngLat(currentFeature.geometry.coordinates)
             .setHTML(
-                `<h3>Starbucks</h3><h4>${currentFeature.properties.street_address}</h4>`
+                `<h3>STARBUCKS</h3><h4>${currentFeature.properties.street_address}</h4>`
             )
             .addTo(map);
     }

@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Kanit:wght@700&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
     <!--Geocoder-->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js">
@@ -136,7 +137,7 @@
 
         .listings .item .title {
             display: block;
-            color: #00853e;
+            color: #006241;
             font-weight: 700;
         }
 
@@ -165,7 +166,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00853e;
+            background: #006241;
             border-radius: 0;
         }
 
@@ -188,13 +189,15 @@
         }
 
         .mapboxgl-popup-content {
-            font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+            font: 400 15px/22px 'Playfair Display', serif;
             padding: 0;
             width: 180px;
         }
 
         .mapboxgl-popup-content h3 {
-            background: #91c949;
+            font-family: 'Kanit', sans-serif;
+            text-align: center;
+            background: #006241;
             color: #fff;
             margin: 0;
             padding: 10px;
@@ -204,6 +207,7 @@
         }
 
         .mapboxgl-popup-content h4 {
+            text-align: center;
             margin: 0;
             padding: 10px;
             font-weight: 400;
