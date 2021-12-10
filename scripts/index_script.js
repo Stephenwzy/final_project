@@ -2,67 +2,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5ic
 
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v10',
+    style: 'mapbox://styles/stephenwzy/ckvwuj27t521t14m6wdjnm7d4',
     center: [-122.32559, 47.641025],
     zoom: 11,
     scrollZoom: true
 });
-
-const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            marker: true,
-            bbox: [-122.43560, 47.50642, -122.24572, 47.76884]
-        });
-
-map.addControl(geocoder, 'top-right');
-
-async function getRoute(end) {
-    // make a directions request using cycling profile
-    // an arbitrary start will always be the same
-    // only the end or destination will change
-    const query = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/${document.querySelector('input[name="profile"]:checked').value}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`, {
-            method: 'GET'
-        }
-    );
-    const json = await query.json();
-    const data = json.routes[0];
-    const route = data.geometry.coordinates;
-    const geojson = {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-            type: 'LineString',
-            coordinates: route
-        }
-    };
-    // if the route already exists on the map, we'll reset it using setData
-    if (map.getSource('route')) {
-        map.getSource('route').setData(geojson);
-    }
-    // otherwise, we'll make a new request
-    else {
-        map.addLayer({
-            id: 'route',
-            type: 'line',
-            source: {
-                type: 'geojson',
-                data: geojson
-            },
-            layout: {
-                'line-join': 'round',
-                'line-cap': 'round'
-            },
-            paint: {
-                'line-color': '#3887be',
-                'line-width': 5,
-                'line-opacity': 0.75
-            }
-        });
-    }
-    // add turn instructions here at the end
-}
 
 
 async function geojsonFetch() {
@@ -82,7 +26,6 @@ async function geojsonFetch() {
         });
 
         buildLocationList(starbucks);
-        
         addMarkers();
 
         geocoder.on('result', (event) => {
@@ -116,7 +59,6 @@ async function geojsonFetch() {
             }
             buildLocationList(starbucks);
             createPopUp(starbucks.features[0]);
-            getRoute(searchResult);
 
             const activeListing = document.getElementById(
                 `listing-${starbucks.features[0].properties.id}`
