@@ -42,17 +42,17 @@ async function geojsonFetch() {
                     ['linear'],
                     ['number', ['get','median_dwell']],
                     0,
-                    '#2DC4B2',
+                    '#f6eff7',
                     5,
-                    '#3BB3C3',
+                    '#d0d1e6',
                     10,
-                    '#669EC4',
+                    '#a6bddb',
                     20,
-                    '#8B88B6',
+                    '#67a9cf',
                     40,
-                    '#A2719B',
+                    '#1c9099',
                     80,
-                    '#AA5E79'
+                    '#016c59'
                 ],
                 'circle-opacity': 0.8
             },

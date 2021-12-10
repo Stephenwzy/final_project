@@ -42,17 +42,17 @@ async function geojsonFetch() {
                     ['linear'],
                     ['number', ['get', 'raw_visit_counts']],
                     0,
-                    '#2DC4B2',
+                    '#f6eff7',
                     50,
-                    '#3BB3C3',
+                    '#d0d1e6',
                     100,
-                    '#669EC4',
+                    '#a6bddb',
                     500,
-                    '#8B88B6',
+                    '#67a9cf',
                     1000,
-                    '#A2719B',
+                    '#1c9099',
                     3000,
-                    '#AA5E79'
+                    '#016c59'
                 ],
                 'circle-opacity': 0.8
             },
