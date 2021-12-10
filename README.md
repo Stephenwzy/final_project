@@ -7,7 +7,7 @@
 stephenwzy.github.io/final_project/index.html
 #### Project Description:
 
-The project is designed as an interactive map application that contain one main page and two sub pages. The application shows the distribution of Starbucks coffee shops in Seattle City. The application will sort out the nearest Starbucks based on the geographic locations (nominal locations) provided by users in the search bar. On the index page (home page), the app provides two buttons. The first one directs to "Visualization of raw visits", which displays the pattern of the sum of raw visits in each Starbucks from 2021/10/1 - 2021/11/1. The second one directs to "Visualization of dwelling time", which diaplays the pattern of visitors' median dwelling time in each Starbucks.
+The project is designed as an interactive map application that contain one main page and two sub pages. The application shows the distribution of Starbucks coffee shops in Seattle City. The application will sort out the nearest Starbucks based on the geographic locations (nominal locations) provided by users in the search bar. On the index page (home page), the app provides two buttons. The first one directs to "Visualization of raw visits", which displays the pattern of the sum of raw visits in each Starbucks from 2021/10/1 - 2021/11/1 based on POI data. The second one directs to "Visualization of dwelling time", which diaplays the pattern of visitors' median dwelling time in each Starbucks based on POI data.
 
 ![Application](assets/app.png)
 
