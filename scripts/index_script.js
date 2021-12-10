@@ -29,7 +29,8 @@ async function geojsonFetch() {
             accessToken: mapboxgl.accessToken,
             mapboxgl:mapboxgl,
             marker:true,
-            bbox: [-122.437866,47.513784,-122.239633,47.774180]
+            bbox: [-122.437866,47.513784,-122.239633,47.774180],
+            placeholder: 'Search in Seattle ...',
         });
 
         buildLocationList(starbucks);
