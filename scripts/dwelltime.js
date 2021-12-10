@@ -19,7 +19,7 @@ async function geojsonFetch() {
         
         
         map.addLayer({
-            id: 'raw_visit',
+            id: 'median_dwelltime',
             type: 'circle',
             source: {
                 type: 'geojson',
@@ -29,29 +29,29 @@ async function geojsonFetch() {
                 'circle-radius': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get','raw_visit_counts']],
+                    ['number', ['get','median_dwell']],
                     0, 2,
-                    50, 6,
-                    100, 10,
-                    500, 16,
-                    1000, 22,
-                    3000, 28
+                    5, 6,
+                    10, 10,
+                    20, 16,
+                    40, 22,
+                    80, 28
                 ],
                 'circle-color': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get', 'raw_visit_counts']],
+                    ['number', ['get','median_dwell']],
                     0,
                     '#2DC4B2',
-                    50,
+                    5,
                     '#3BB3C3',
-                    100,
+                    10,
                     '#669EC4',
-                    500,
+                    20,
                     '#8B88B6',
-                    1000,
+                    40,
                     '#A2719B',
-                    3000,
+                    80,
                     '#AA5E79'
                 ],
                 'circle-opacity': 0.8

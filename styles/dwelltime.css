@@ -30,7 +30,7 @@ a {
 #console {
     position: absolute;
     margin: 10px;
-    width: 320px;
+    width: 360px;
     height: 220px;
     background-color: white;
     padding: 10px 20px;
@@ -57,7 +57,7 @@ a {
 }
 
 .label {
-    width: 18%;
+    width: 15%;
     display: inline-block;
     text-align: center;
 }
@@ -77,6 +77,6 @@ a {
     -o-transition: all 0.2s;
     transition: all 0.2s;
     cursor: pointer;
-    margin-left: 200px;
+    margin-left: 250px;
     margin-top: 50px;
 }

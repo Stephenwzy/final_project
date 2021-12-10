@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
 
-const map = new mapboxgl.Map({
+/*const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/street-v11',
     center: [-122.32559, 47.641025],
@@ -11,9 +11,27 @@ const map = new mapboxgl.Map({
 const bounds = [
     [-122.439107, 47.744252],
     [-122.224531, 47.499192]
-];
+];*/
 
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-122.32559, 47.641025], // starting position
+    zoom: 12,
+    scrollZoom: true
+});
+// set the bounds of the map
+const bounds = [
+    [-122.439107, 47.744252],
+    [-122.224531, 47.499192]
+];
 map.setMaxBounds(bounds);
+
+// an arbitrary start will always be the same
+// only the end or destination will change
+//const start = [-122.662323, 45.523751];
+// this is where the code for the next step will go
+
 
 // create a function to make a directions request
 async function getRoute(end) {
@@ -64,32 +82,103 @@ async function getRoute(end) {
 }
 
 map.on('load', () => {
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        marker: true,
+        bbox: [-122.43560, 47.50642, -122.24572, 47.76884]
+    });
+
+    map.addControl(geocoder, 'top-right');
+
+    geocoder.on('result', (event) =>{
+        const searchResult = event.result.geometry;
+        const start = event.result.coordinates;
+        flyToStore(searchResult);
+        getRoute(start);
+    });
+
+    
     // make an initial directions request that
     // starts and ends at the same location
-    getRoute(start);
-
+    
+  
     // Add starting point to the map
     map.addLayer({
-        id: 'point',
-        type: 'circle',
-        source: {
-            type: 'geojson',
-            data: {
+      id: 'point',
+      type: 'circle',
+      source: {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [
+            {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'Point',
+                coordinates: start
+              }
+            }
+          ]
+        }
+      },
+      paint: {
+        'circle-radius': 10,
+        'circle-color': '#3887be'
+      }
+    });
+    map.on('click', (event) => {
+        const coords = Object.keys(event.lngLat).map((key) => event.lngLat[key]);
+        const end = {
+          type: 'FeatureCollection',
+          features: [
+            {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'Point',
+                coordinates: coords
+              }
+            }
+          ]
+        };
+        if (map.getLayer('end')) {
+          map.getSource('end').setData(end);
+        } else {
+          map.addLayer({
+            id: 'end',
+            type: 'circle',
+            source: {
+              type: 'geojson',
+              data: {
                 type: 'FeatureCollection',
-                features: [{
+                features: [
+                  {
                     type: 'Feature',
                     properties: {},
                     geometry: {
-                        type: 'Point',
-                        coordinates: start
+                      type: 'Point',
+                      coordinates: coords
                     }
-                }]
+                  }
+                ]
+              }
+            },
+            paint: {
+              'circle-radius': 10,
+              'circle-color': '#f30'
             }
-        },
-        paint: {
-            'circle-radius': 10,
-            'circle-color': '#3887be'
+          });
         }
-    });
-    // this is where the code from the next step will go
+        getRoute(coords);
+      });
 });
+
+
+function flyToStore(currentFeature) {
+    map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 15
+    });
+}
