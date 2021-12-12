@@ -16,8 +16,6 @@ async function geojsonFetch() {
 
     map.on('load', () => {
 
-        
-        
         map.addLayer({
             id: 'raw_visit',
             type: 'circle',
