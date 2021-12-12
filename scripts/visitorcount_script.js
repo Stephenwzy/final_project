@@ -27,7 +27,7 @@ async function geojsonFetch() {
                 'circle-radius': [
                     'interpolate',
                     ['linear'],
-                    ['number', ['get','raw_visit_counts']],
+                    ['number', ['get', 'raw_visit_counts']],
                     0, 2,
                     50, 6,
                     100, 10,
@@ -54,33 +54,15 @@ async function geojsonFetch() {
                 ],
                 'circle-opacity': 0.8
             },
-           
-            
+
+
         });
-
-        /*document
-        .getElementById('filters')
-        .addEventListener('change', (event) => {
-            const day = event.target.value;
-            for (const site of starbucks.features){
-                if (day == site.properties.popularity_by_day[0]) {
-                    filterDay = ['!=', ['string', ['get', 'popularity_by_day']], 'placeholder'];
-                } else{
-                    console.error('error');
-                }
-            }
-            
-            
-            map.setFilter('raw_visit', ['all', filterDay]);
-
-        });*/
-
 
     });
 
 };
 geojsonFetch();
 
-function bk(){
+function bk() {
     window.location.href = 'index.html';
 }
