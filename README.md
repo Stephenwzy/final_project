@@ -18,11 +18,14 @@ The data used in this application is downloaded from [SafeGraph]('www.safegraph.
 
 SafeGraph provides multiple types of datasets. In this application, I downloaded "Core Places" .csv file, which contains basic information of each Starbucks, including the geographic coordinates. I also downloaded "Patterns" .csv file, which contians various types of POI data. I used Rstudio to merge two .csv by the column "street_address" and get a dataset containing both patterns and geographic coordinates. Then I used QGIS to convert the .csv file to a .geojson file that I can load in javascript.
 
-#### Project Goal:
-
+#### Main Functions:
 This is a relatively daily map application. The application basically provides two functions: 
 1. Location sorting based on distance
 2. Passenger flow information visualization
+
+
+
+#### Project Goal:
 
 It is trying to allow users to make a comprehensive consideration of geographic distance, passenger flow, and passenger dwelling time. Especially in the context of a pandemic, such consideration became more important. When users use this application, they can decide which Starbucks to go to based on this information. Not only considering how far one site from the user, but the users should consider about how crowd it is and assess whether there is a risk of being infected or contacting virus carriers if they work or study in the coffee shop for a relatively long time. Even though it is impossible to capture the real-time passenger flow data, based on the POI data in the previous month, a pattern of passenger flow information can be roughly inferred.
 
@@ -38,4 +41,7 @@ Median of dwelling time of all visits from 2021/10/1 to 2021/11/1:
 3. Github
 4. Google fonts
 5. Mapbox Studio
+
+#### Acknowledgement
+I would acknowledge that this project is based on the 
 
