@@ -48,13 +48,12 @@ Sorting list:
 ![sorting](assets/sorting.PNG)
 
 
-#### Applied Libraries and Web Services
-1. Mapbox GL js - 
-2. Turf
-3. Github
-4. Google fonts
-5. Mapbox Studio (basemap design)
+#### Applied Libraries, Web services and Acknowledgement
+1. [Mapbox GL js](https://www.mapbox.com) -  The project is based on Mapbox GL js API
+2. [Turf](https://www.turfjs.org) - One library that provides the distance sorting function of the project.
+3. [Github](https://www.github.com) - Place to share codes and study the course materials
+4. [Google fonts](https://www.fonts.google.com) - The font library that provides fonts for the project
+5. [Mapbox Studio (basemap design)](https://studio.mapbox.com) - Mapbox Studio is the website where I made my own basemap style.
 
-#### Acknowledgement
-I would acknowledge that this project is based on the 
+**I would acknowledge that this project is based on the skills and knowledge acuqired from GEOG 495 taught by Professor Bo Zhao.**
 
