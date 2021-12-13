@@ -4,7 +4,7 @@
 
 #### Application URL:
 
-stephenwzy.github.io/final_project/index.html
+https://stephenwzy.github.io/final_project/index.html
 
 #### Project Description:
 
