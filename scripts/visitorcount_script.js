@@ -11,7 +11,7 @@ const map = new mapboxgl.Map({
 async function geojsonFetch() {
 
     let response, starbucks;
-    response = await fetch('assets/starbucks_sea.geojson');
+    response = await fetch('assets/starbucks.geojson');
     starbucks = await response.json()
 
     map.on('load', () => {

@@ -49,7 +49,7 @@ Sorting list:
 
 
 #### Applied Libraries and Web Services
-1. Mapbox GL js
+1. Mapbox GL js - 
 2. Turf
 3. Github
 4. Google fonts
