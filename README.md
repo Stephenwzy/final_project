@@ -43,9 +43,6 @@ Pop-up box:
 
 ![pop-up](assets/popup.png)
 
-Sorting list:
-
-![sorting](assets/sorting.png)
 
 
 #### Applied Libraries and Web Services
