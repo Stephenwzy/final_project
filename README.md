@@ -41,7 +41,7 @@ Median of dwelling time of all visits from 2021/10/1 to 2021/11/1:
 
 Pop-up box:
 
-![pop-up](assets/popup.png)
+![pop-up](assets/popup.PNG)
 
 
 
