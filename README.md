@@ -20,8 +20,9 @@ SafeGraph provides multiple types of datasets. In this application, I downloaded
 
 #### Main Functions:
 This is a relatively daily map application. The application basically provides two functions: 
-1. Location sorting based on distance
-2. Passenger flow information visualization
+1. <u>**Location sorting based on distance:**</u> On the index page, users will see 1/3 of this page is occupied by a list that can be scrolled, listing Starbucks items with the street addresses, city, phone numbers, and zip codes. 2/3 of this page is occupied by an interactive map. The base map is in a light-colored style and highlights the traffic system to make a clear contrast to the marker and help users have a better sense of locations. By introducing turf.js and geocoder libraries, the application can realize distance sorting whenever users search one specific place in Seattle City (the bounding box is constrained in Seattle City). The list will make an ascending sorting from the nearest Starbucks to the farthest. The distance between Starbucks and the search address will show up in the list.
+
+2. <u>**Passenger flow information visualization:**</u> This part of the function will be separated into two different pages. Users can click two buttons in the heading part on the index page. The first one, "Raw Visits," directs to a page that helps users visualize the pattern of the sum of raw visits of each Starbucks from 2021/10/1-2021/11/1. Both the radius and color gradient allows users to understand the difference in the number of people in each Starbucks. The second button, "Median dwell," directs to a page that helps users visualize the pattern of the median dwelling time of visits of each Starbucks from 2021/10/1-2021/11/1. The Larger radius and the darker color mean a longer median dwelling time.
 
 
 
@@ -31,16 +32,28 @@ It is trying to allow users to make a comprehensive consideration of geographic 
 
 #### Screenshots
 Sum of raw visits from 2021/10/1 to 2021/11/1: 
+
 ![raw visits](assets/visits.png)
+
 Median of dwelling time of all visits from 2021/10/1 to 2021/11/1:
+
 ![dwelling](assets/dwelling.png)
+
+Pop-up box:
+
+![pop-up](assets/popup.png)
+
+Sorting list:
+
+![sorting](assets/sorting.png)
+
 
 #### Applied Libraries and Web Services
 1. Mapbox GL js
 2. Turf
 3. Github
 4. Google fonts
-5. Mapbox Studio
+5. Mapbox Studio (basemap design)
 
 #### Acknowledgement
 I would acknowledge that this project is based on the 
